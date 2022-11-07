@@ -8,7 +8,7 @@ class Api {
         std::string apiUrl;
         // curlpp api;
     public:
-        Api(std::string apiUrl);
+        Api(std::string url);
         ~Api();
         std::string getData();
 };
