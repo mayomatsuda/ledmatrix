@@ -6,7 +6,6 @@
 class Api {
     private:
         std::string apiUrl;
-        // curlpp api;
     public:
         Api(std::string url);
         ~Api();
