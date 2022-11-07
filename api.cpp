@@ -15,9 +15,9 @@ Api::~Api() {
 
 string Api::getData() {
     stringstream response;
-    curlpp::Easy foo;
-    foo.setOpt( new curlpp::options::Url( apiUrl ) );
-    foo.setOpt( new curlpp::options::WriteStream( &response ) );
-    foo.perform();
+    curlpp::Easy request;
+    request.setOpt( new curlpp::options::Url( apiUrl ) );
+    request.setOpt( new curlpp::options::WriteStream( &response ) );
+    request.perform();
     return response.str();
 }
