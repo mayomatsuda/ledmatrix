@@ -7,7 +7,12 @@
 #include "api.h"
 
 class BusMode: public Mode {
+    private:
+        std::vector<std::string> parseRouteData(std::string route, std::string stop);
+        bool isDaylightSavings();
     public:
+        BusMode(rgb_matrix::RGBMatrix* mtx);
+        ~BusMode();
         void displayFunction();
         std::string formatData();
 };

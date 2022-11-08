@@ -7,9 +7,11 @@
 
 class Mode {
     private:
+        rgb_matrix::RGBMatrix* matrix;
+    protected:
         Api* api;
     public:
-        Mode(std::string url, rgb_matrix::RGBMatrix matrix);
+        Mode(rgb_matrix::RGBMatrix* mtx);
         ~Mode();
         virtual void displayFunction();
         virtual std::string formatData();
