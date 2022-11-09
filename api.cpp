@@ -16,8 +16,12 @@ Api::~Api() {
 string Api::getData() {
     stringstream response;
     curlpp::Easy request;
+
+    // Set request options to retrieve from URL and write to response
     request.setOpt( new curlpp::options::Url( apiUrl ) );
     request.setOpt( new curlpp::options::WriteStream( &response ) );
+
+    // Perform and return request
     request.perform();
     return response.str();
 }
