@@ -25,11 +25,3 @@ string Api::getData() {
     request.perform();
     return response.str();
 }
-
-// EXAMPLE MAIN FUNCTION
-// This is temporary and is for testing the Api class
-int main() {
-    Api* api = new Api("https://lipsum.com/");
-    string data = api->getData();
-    cout << data;
-}

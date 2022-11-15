@@ -21,16 +21,16 @@ class Mode {
         * @param mtx Reference to the matrix to display on
         */
         Mode(rgb_matrix::RGBMatrix* mtx);
-        ~Mode();
+        virtual ~Mode();
        /**
         * Virtual display function to be overriden by specific modes
         * @param text Text to display, formatted
         */
-        virtual void displayFunction(std::string text);
+        virtual void displayFunction(std::string text) = 0;
        /**
         * Virtual format data function to be overriden by specific modes
         */
-        virtual std::string formatData();
+        virtual std::string formatData() = 0;
 };
 
 #endif
