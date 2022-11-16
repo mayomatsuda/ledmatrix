@@ -2,6 +2,8 @@
 from nbformat import read
 import requests
 from datetime import datetime, date
+import sys
+import time
 
 # store the URL
 URL = "http://gtfs.ltconline.ca/TripUpdate/TripUpdates.json"
@@ -38,7 +40,6 @@ def get_time(route, stop):
 
         # ensure instance of the stop exists on the route
         here = tx.find(stop, ind1_low, ind1_high)
-
         if (here != -1):
             # find occurence of desired stop
             ind2 = tx.find('stop_id":"' + stop, ind1_low)
@@ -82,10 +83,34 @@ def isDaylightSavings():
         else:
             return True
 
+def format_text(route, arr):
+    tx = route + ": ;"
+    for x in arr:
+        tx = tx + x + " "
+    tx = tx.rstrip()
+    tx = tx + ";"
+    return tx
+
 daylightSavings = isDaylightSavings()
 
 route_1 = "02"
 route_2 = "102"
 stop = "WHARMOIR"
 
-print(get_time(route_1, stop))
+def get_info():
+    # Create global variables so they can be updated without interupting the display
+    global times_1
+    global times_2
+    global tx_1
+    global tx_2
+
+    times_1 = get_time(route_1, stop)
+    times_2 = get_time(route_2, stop)
+
+    tx_1 = format_text(route_1, times_1)
+    tx_2 = format_text(route_2, times_2)
+
+    print(tx_1)
+    print(tx_2)
+
+get_info()

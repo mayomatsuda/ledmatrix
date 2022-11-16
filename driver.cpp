@@ -1,0 +1,21 @@
+#include "busmode.h"
+#include "led-matrix.h"
+#include "graphics.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <chrono>
+using namespace std;
+using namespace rgb_matrix;
+
+int main() {
+    RGBMatrix::Options matrix_options;
+    rgb_matrix::RuntimeOptions runtime_opt;
+    matrix_options.brightness = 50;
+    matrix_options.cols = 64;
+    matrix_options.hardware_mapping = "adafruit-hat";
+    RGBMatrix *matrix = RGBMatrix::CreateFromOptions(matrix_options, runtime_opt);
+
+    BusMode* bm = new BusMode(matrix);
+}

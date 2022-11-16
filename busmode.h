@@ -2,7 +2,8 @@
 #define BUSMODE_H
 
 #include <string>
-#include "rpi-rgb-led-matrix/include/led-matrix.h"
+#include "led-matrix.h"
+#include "graphics.h"
 #include "mode.h"
 #include "api.h"
 
@@ -20,6 +21,11 @@ class BusMode: public Mode {
         * @return True if daylight savings, false otherwise
         */
         bool isDaylightSavings();
+       /**
+        * Format function that takes parsed route data and puts it in a string that displayFunction can interpret
+        * @return Formatted string, returned to displayFunction
+        */
+        std::string formatData(std::string route, std::string stop);
     public:
        /**
         * Constructor that handles creating the Api class based on the unique URL for the bus times
@@ -28,15 +34,11 @@ class BusMode: public Mode {
         BusMode(rgb_matrix::RGBMatrix* mtx);
         ~BusMode();
        /**
-        * Overridded display function that takes formatted data and displays bus time info on matrix
+        * Overridded display function that takes input parameters and displays relevant data
         * @param text Text to display, formatted
         */
-        void displayFunction(std::string text);
-       /**
-        * Overridded format function that takes parsed route data and puts it in a string that displayFunction can interpret
-        * @return Formatted string, interpretable by displayFunction
-        */
-        std::string formatData();
+        void displayFunction(std::vector<std::string> input);
+
 };
 
 #endif

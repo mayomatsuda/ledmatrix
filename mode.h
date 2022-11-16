@@ -2,7 +2,7 @@
 #define MODE_H
 
 #include <string>
-#include "rpi-rgb-led-matrix/include/led-matrix.h"
+#include "led-matrix.h"
 #include "api.h"
 
 class Mode {
@@ -26,11 +26,7 @@ class Mode {
         * Virtual display function to be overriden by specific modes
         * @param text Text to display, formatted
         */
-        virtual void displayFunction(std::string text) = 0;
-       /**
-        * Virtual format data function to be overriden by specific modes
-        */
-        virtual std::string formatData() = 0;
+        virtual void displayFunction(std::vector<std::string> input) = 0;
 };
 
 #endif
