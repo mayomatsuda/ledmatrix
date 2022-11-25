@@ -7,6 +7,7 @@
 #include <sstream>
 #include <chrono>
 #include <unistd.h>
+#include <algorithm>
 using namespace std;
 using namespace rgb_matrix;
 
@@ -77,9 +78,13 @@ void BusMode::displayFunction(vector<string> input) {
         const int BOTTOM_POS = 27;
 
         DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, (route1 + ": ").c_str());
-        DrawText(canvas, *font, RIGHT_POS, TOP_POS, colorTwo, route1times[counter % route1times.size()].c_str());
+        if (route1times.size() > 0) {
+            DrawText(canvas, *font, RIGHT_POS, TOP_POS, colorTwo, route1times[counter % route1times.size()].c_str());
+        }
         DrawText(canvas, *font, LEFT_POS, BOTTOM_POS, colorOne, (route2 + ": ").c_str());
-        DrawText(canvas, *font, RIGHT_POS, BOTTOM_POS, colorTwo, route2times[counter % route2times.size()].c_str());
+        if (route2times.size() > 0) {
+            DrawText(canvas, *font, RIGHT_POS, BOTTOM_POS, colorTwo, route2times[counter % route2times.size()].c_str());
+        }
         canvas = matrix->SwapOnVSync(canvas);
         sleep(5);
     }
@@ -90,10 +95,6 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
     // See TripUpdates.json for an example of what the data being processed here will look like
 
     string tx = api->getData();
-    // ifstream t("TripUpdates.json");
-    // stringstream buffer;
-    // buffer << t.rdbuf();
-    // string tx = buffer.str();
 
     // First occurence of desired route, indicated by '"route_id":"<route>"' in the data
     int ind1_low = tx.find("route_id\":\"" + route);
@@ -140,22 +141,24 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
             if (ind_between > ind2) {
                 // Find occurence of time at most 50 characters before stop
                 int ind3 = tx.find("time", ind2 - 50);
-                int timeunix = stoi(tx.substr(ind3+6,ind3+16));
-                time_t tmp = timeunix;
-                tm* t = gmtime(&tmp);
-                int hour = t->tm_hour;
-                string hourStr;
-                if (isDaylightSavings())
-                    hourStr = to_string((hour - 4 + 12) % 12);
-                else
-                    hourStr = to_string((hour - 5 + 12) % 12);
-                if (hourStr == "0")
-                    hourStr = "00";
-                string minute = to_string(t->tm_min);
-                if (minute.length() == 1)
-                    minute = "0" + minute;
-                string time = hourStr + ":" + minute;
-                times.push_back(time);
+                if (ind3 != -1) {
+                    int timeunix = stoi(tx.substr(ind3+6,ind3+16));
+                    time_t tmp = timeunix;
+                    tm* t = gmtime(&tmp);
+                    int hour = t->tm_hour;
+                    string hourStr;
+                    if (isDaylightSavings())
+                        hourStr = to_string((hour - 4 + 12) % 12);
+                    else
+                        hourStr = to_string((hour - 5 + 12) % 12);
+                    if (hourStr == "0")
+                        hourStr = "00";
+                    string minute = to_string(t->tm_min);
+                    if (minute.length() == 1)
+                        minute = "0" + minute;
+                    string time = hourStr + ":" + minute;
+                    times.push_back(time);
+                }
             }
         }
         

@@ -1,4 +1,5 @@
 #include "busmode.h"
+#include "weathermode.h"
 #include "led-matrix.h"
 #include "graphics.h"
 #include <iostream>
@@ -17,5 +18,9 @@ int main() {
     matrix_options.hardware_mapping = "adafruit-hat";
     RGBMatrix *matrix = RGBMatrix::CreateFromOptions(matrix_options, runtime_opt);
 
-    BusMode* bm = new BusMode(matrix);
+    // BusMode* bm = new BusMode(matrix);
+    // vector<string> input = {"WHARMOIR", "02", "102"};
+    WeatherMode* bm = new WeatherMode(matrix);
+    vector<string> input = {"42.984268", "-81.247528"};
+    bm->displayFunction(input);
 }
