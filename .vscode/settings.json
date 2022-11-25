@@ -72,6 +72,8 @@
         "iomanip": "cpp",
         "map": "cpp",
         "stack": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "filesystem": "cpp",
+        "random": "cpp"
     }
 }

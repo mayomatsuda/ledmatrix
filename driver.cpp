@@ -20,7 +20,7 @@ int main() {
 
     // BusMode* bm = new BusMode(matrix);
     // vector<string> input = {"WHARMOIR", "02", "102"};
-    WeatherMode* bm = new WeatherMode(matrix);
+    WeatherMode* bm = new WeatherMode(NULL);
     vector<string> input = {"42.984268", "-81.247528"};
     bm->displayFunction(input);
 }

@@ -1,116 +1,84 @@
-# modules
-from nbformat import read
 import requests
-from datetime import datetime, date
+import json
 import sys
 import time
+from datetime import datetime
+sys.path.insert(1, '/home/pi/Documents/rpi-rgb-led-matrix/bindings/python')
+from rgbmatrix import graphics, RGBMatrix, RGBMatrixOptions
+import urllib.request
+from PIL import Image
 
-# store the URL
-URL = "http://gtfs.ltconline.ca/TripUpdate/TripUpdates.json"
+API_KEY = "9f1b0c1d0f611f5ffb437e3ebbeb98c5"
+IMAGE = "icon_file.png"
+LAT = 42.985200
+LON = -81.265600
+URL = f'https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&appid={API_KEY}&units=metric'
 
-# get time of bus arrival at specific stop and route
-def get_time(route, stop):
-    # store the response of URL
+def get_data():
     response = requests.get(URL)
-
-    # turn to json
     tx = response.text
-    # tx = open("TripUpdates.json").read()
+    js = json.loads(tx)
 
-    # lowest occurence of desired route
-    ind1_low = tx.find('route_id":"' + route)
-    if ind1_low == -1:
-        ind1_low = tx.find('route_id": "' + route)
+    global weather
+    global temps
+    global currenttime
 
-    # next occurence of route id
-    ind_between = tx.find('route_id":"', ind1_low + 1)
+    weather = js["weather"][0]['main']
+    icon = js["weather"][0]['icon']
+    temp = round(js["main"]["feels_like"])
+    temps = f'{temp}°'
+    icon_url = f'http://openweathermap.org/img/wn/{icon}@2x.png'
 
-    # next occurence of desired route
-    ind1_high = tx.find('route_id":"' + route, ind1_low + 1)
-    if ind1_high == -1:
-        ind1_high = tx.find('route_id": "' + route, ind1_low + 1)
+    urllib.request.urlretrieve(icon_url, "icon_file.png")
 
-    times = []
+    now = datetime.now()
+    currenttime = now.strftime("%I:%M ")
+    format_text()
 
-    while (True):
-        
-        # this will eventually happen, terminating the loop
-        if (ind1_low == -1):
-            return sorted(times)
+def format_text():
+    global text
+    text = currenttime + temps +  ";" + weather
 
-        # ensure instance of the stop exists on the route
-        here = tx.find(stop, ind1_low, ind1_high)
-        if (here != -1):
-            # find occurence of desired stop
-            ind2 = tx.find('stop_id":"' + stop, ind1_low)
-            if ind2 == -1:
-                ind2 = tx.find('stop_id": "' + stop, ind1_low)
+def run_text():
+    global text
+    options = RGBMatrixOptions()
+    options.cols = 64
+    options.hardware_mapping = "adafruit-hat"
+    options.brightness = 50
 
-            if (ind_between > ind2):
-                # find occurence of time at most 50 characters before stop
-                ind3 = tx.find('time', ind2 - 50)
+    matrix = RGBMatrix(options=options)
+    offscreen_canvas = matrix.CreateFrameCanvas()
+    font = graphics.Font()
+    font.LoadFont("/home/pi/Documents/rpi-rgb-led-matrix/fonts/7x13.bdf")
+    fontSmall = graphics.Font()
+    fontSmall.LoadFont("/home/pi/Documents/rpi-rgb-led-matrix/fonts/6x9.bdf")
+    textColor = graphics.Color(255, 255, 255)
 
-                # convert UNIX time to UTC, then to EST
-                timeunix = int(tx[ind3+6:ind3+16])
-                hour = int(datetime.utcfromtimestamp(timeunix).strftime('%H'))
-                if (daylightSavings):
-                    hour = str((hour - 4) % 12)
-                else:
-                    hour = str((hour - 5) % 12)
-                if (hour == '0'): hour = '12'
-                minute = str(datetime.utcfromtimestamp(timeunix).strftime('%M'))
-                time = hour + ":" + minute
-                times.append(time)
-        
-        ind1_low = ind1_high
-        ind_between = tx.find('route_id":"', ind1_low + 1)
-        ind1_high = tx.find('route_id":"' + route, ind1_low + 1)
-        if ind1_high == -1:
-            ind1_high = tx.find('route_id": "' + route, ind1_low + 1)
+    try:
+        while True:
+            get_data()
+            text = text.split(';')
+            # Too long to fit
+            if (text[1] == "Thunderstorm"): text[1] = "Thunder"
+            offscreen_canvas.Clear()
 
-def isDaylightSavings():
-    today = date.today()
-    m = int(today.strftime("%m"))
-    d = int(today.strftime("%d"))
+            LEFT_POS = 1
+            TOP_POS = 13
+            BOTTOM_POS = 25
 
-    if (m >= 3 and m <= 11):
-        if (m == 3):
-            if (d >= 13):
-                return True
-        elif (m == 11):
-            if (d <= 6):
-                return True
-        else:
-            return True
+            image = Image.open(IMAGE)
+            image.thumbnail((16, 16), Image.ANTIALIAS)
 
-def format_text(route, arr):
-    tx = route + ": ;"
-    for x in arr:
-        tx = tx + x + " "
-    tx = tx.rstrip()
-    tx = tx + ";"
-    return tx
+            graphics.DrawText(offscreen_canvas, font, LEFT_POS, TOP_POS, textColor, text[0])
+            graphics.DrawText(offscreen_canvas, fontSmall, LEFT_POS + 18, BOTTOM_POS, textColor, text[1])
 
-daylightSavings = isDaylightSavings()
+            offscreen_canvas = matrix.SwapOnVSync(offscreen_canvas)
 
-route_1 = "02"
-route_2 = "102"
-stop = "WHARMOIR"
+            matrix.SetImage(image.convert('RGB'), LEFT_POS, TOP_POS)
 
-def get_info():
-    # Create global variables so they can be updated without interupting the display
-    global times_1
-    global times_2
-    global tx_1
-    global tx_2
+            time.sleep(60)
 
-    times_1 = get_time(route_1, stop)
-    times_2 = get_time(route_2, stop)
+    except KeyboardInterrupt:
+        sys.exit(0)
 
-    tx_1 = format_text(route_1, times_1)
-    tx_2 = format_text(route_2, times_2)
-
-    print(tx_1)
-    print(tx_2)
-
-get_info()
+run_text()
