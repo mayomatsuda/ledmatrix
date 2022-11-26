@@ -10,10 +10,9 @@
 #include <algorithm>
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
-#include <opencv2/opencv.hpp>
 using namespace std;
 using namespace rgb_matrix;
-using namespace cv;
+// using namespace cv;
 using json = nlohmann::json;
 
 WeatherMode::WeatherMode(rgb_matrix::RGBMatrix* mtx) : Mode(mtx) {
@@ -52,31 +51,30 @@ void WeatherMode::displayFunction(vector<string> input) {
         const int BOTTOM_POS = 25;
         const int RIGHT_POS = 19;
 
-        Mat image = imread(IMAGE);
-        resize(image, image, Size(16,16), 0, 0, INTER_LINEAR);
+        // Mat image = imread(IMAGE);
+        // resize(image, image, Size(16,16), 0, 0, INTER_LINEAR);
 
         if (data[1] == "Thunderstorm") {
             data[1] = "Thunder";
         }
 
-        DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, data[0]);
-        DrawText(canvas, *fontsmall, RIGHT_POS, BOTTOM_POS, colorOne, data[1]);
+        DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, data[0].c_str());
+        DrawText(canvas, *fontsmall, RIGHT_POS, BOTTOM_POS, colorOne, data[1].c_str());
 
-        int nx = image.cols;
-        int ny = image.rows;
+        // int nx = image.cols;
+        // int ny = image.rows;
 
-        for (int a = 0; a < ny; ++a) {
-            for (int b = 0; b < nx; ++b) {
-                matrix->SetPixel(a + TOP_POS, b + LEFT_POS,
-                    ScaleQuantumToChar(image[y][x][0]),
-                    ScaleQuantumToChar(image[y][x][1]),
-                    ScaleQuantumToChar(image[y][x][2])
-                );
-            }
-        }
+        // for (int a = 0; a < ny; ++a) {
+        //     for (int b = 0; b < nx; ++b) {
+        //         matrix->SetPixel(a + TOP_POS, b + LEFT_POS,
+        //             ScaleQuantumToChar(image[y][x][0]),
+        //             ScaleQuantumToChar(image[y][x][1]),
+        //             ScaleQuantumToChar(image[y][x][2])
+        //         );
+        //     }
+        // }
 
         canvas = matrix->SwapOnVSync(canvas);
-        break;
         sleep(60);
     }
 }
@@ -153,7 +151,11 @@ vector<string> WeatherMode::parseWeatherData(float lon, float lat) {
 
     int Hour = localTime->tm_hour;
     int Min = localTime->tm_min;
-    string time = to_string(Hour) + ":" + to_string(Min);
+    string hour = to_string(localTime->tm_hour);
+    string minute = to_string(localTime->tm_min);
+    if (minute.length() == 1)
+        minute = "0" + minute;
+    string time = hour + ":" + minute;
 
     return { time + " " + temps, weather };
 }
