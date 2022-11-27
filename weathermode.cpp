@@ -10,8 +10,10 @@
 #include <algorithm>
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
+#include <CImg.h>
 using namespace std;
 using namespace rgb_matrix;
+using namespace cimg_library;
 using json = nlohmann::json;
 
 WeatherMode::WeatherMode(rgb_matrix::RGBMatrix* mtx) : Mode(mtx) {
@@ -64,17 +66,17 @@ void WeatherMode::displayFunction(vector<string> input) {
         int nx = image.width();
         int ny = image.height();
 
+        canvas = matrix->SwapOnVSync(canvas);
+
         for (int a = 0; a < ny; ++a) {
             for (int b = 0; b < nx; ++b) {
-                matrix->SetPixel(a + TOP_POS, b + LEFT_POS,
-                    ScaleQuantumToChar(image(a,b,0,0)),
-                    ScaleQuantumToChar(image(a,b,0,1)),
-                    ScaleQuantumToChar(image(a,b,0,2))
+                matrix->SetPixel(a + LEFT_POS, b + TOP_POS,
+                    image(a,b,0,0),
+                    image(a,b,0,1),
+                    image(a,b,0,2)
                 );
             }
         }
-
-        canvas = matrix->SwapOnVSync(canvas);
         sleep(60);
     }
 }
@@ -99,7 +101,6 @@ bool download_jpeg(const char* url)
     FILE* fp = fopen("out.png", "wb");
     if (!fp)
     {
-        printf("!!! Failed to create file on the disk\n");
         return false;
     }
 
@@ -112,7 +113,6 @@ bool download_jpeg(const char* url)
     CURLcode rc = curl_easy_perform(curlCtx);
     if (rc)
     {
-        printf("!!! Failed to download: %s\n", url);
         return false;
     }
 
@@ -120,7 +120,6 @@ bool download_jpeg(const char* url)
     curl_easy_getinfo(curlCtx, CURLINFO_RESPONSE_CODE, &res_code);
     if (!((res_code == 200 || res_code == 201) && rc != CURLE_ABORTED_BY_CALLBACK))
     {
-        printf("!!! Response code: %d\n", res_code);
         return false;
     }
 
@@ -149,8 +148,6 @@ vector<string> WeatherMode::parseWeatherData(float lon, float lat) {
     time( &currentTime );                   // Get the current time
     localTime = localtime( &currentTime );  // Convert the current time to the local time
 
-    int Hour = localTime->tm_hour;
-    int Min = localTime->tm_min;
     string hour = to_string(localTime->tm_hour);
     string minute = to_string(localTime->tm_min);
     if (minute.length() == 1)
