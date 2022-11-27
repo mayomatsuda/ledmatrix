@@ -21,6 +21,6 @@ int main() {
     // BusMode* bm = new BusMode(matrix);
     // vector<string> input = {"WHARMOIR", "02", "102"};
     WeatherMode* bm = new WeatherMode(matrix);
-    vector<string> input = {"42.984268", "-81.247528"};
+    vector<string> input = {"-81.247528", "42.984268"};
     bm->displayFunction(input);
 }

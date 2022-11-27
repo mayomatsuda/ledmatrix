@@ -10,10 +10,8 @@
 #include <algorithm>
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
-#include <Cimg.h>
 using namespace std;
 using namespace rgb_matrix;
-using namespace cimg_library;
 using json = nlohmann::json;
 
 WeatherMode::WeatherMode(rgb_matrix::RGBMatrix* mtx) : Mode(mtx) {
@@ -60,8 +58,8 @@ void WeatherMode::displayFunction(vector<string> input) {
             data[1] = "Thunder";
         }
 
-        DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, data[0]);
-        DrawText(canvas, *fontsmall, RIGHT_POS, BOTTOM_POS, colorOne, data[1]);
+        DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, data[0].c_str());
+        DrawText(canvas, *fontsmall, RIGHT_POS, BOTTOM_POS, colorOne, data[1].c_str());
 
         int nx = image.width();
         int ny = image.height();
@@ -153,7 +151,11 @@ vector<string> WeatherMode::parseWeatherData(float lon, float lat) {
 
     int Hour = localTime->tm_hour;
     int Min = localTime->tm_min;
-    string time = to_string(Hour) + ":" + to_string(Min);
+    string hour = to_string(localTime->tm_hour);
+    string minute = to_string(localTime->tm_min);
+    if (minute.length() == 1)
+        minute = "0" + minute;
+    string time = hour + ":" + minute;
 
     return { time + " " + temps, weather };
 }
