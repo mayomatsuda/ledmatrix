@@ -10,10 +10,10 @@
 #include <algorithm>
 #include <nlohmann/json.hpp>
 #include <curl/curl.h>
-#include <opencv2/opencv.hpp>
+#include <Cimg.h>
 using namespace std;
 using namespace rgb_matrix;
-using namespace cv;
+using namespace cimg_library;
 using json = nlohmann::json;
 
 WeatherMode::WeatherMode(rgb_matrix::RGBMatrix* mtx) : Mode(mtx) {
@@ -33,7 +33,7 @@ void WeatherMode::displayFunction(vector<string> input) {
     string URL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&units=metric";
     api = new Api(URL);
 
-    string IMAGE = "out.jpg";
+    string IMAGE = "out.png";
 
     FrameCanvas *canvas = matrix->CreateFrameCanvas();
     Font *font = new Font();
@@ -52,8 +52,9 @@ void WeatherMode::displayFunction(vector<string> input) {
         const int BOTTOM_POS = 25;
         const int RIGHT_POS = 19;
 
-        Mat image = imread(IMAGE);
-        resize(image, image, Size(16,16), 0, 0, INTER_LINEAR);
+        CImg<float> image(IMAGE.c_str());
+        image.resize(16, 16);
+        image.save(IMAGE.c_str());
 
         if (data[1] == "Thunderstorm") {
             data[1] = "Thunder";
@@ -62,21 +63,20 @@ void WeatherMode::displayFunction(vector<string> input) {
         DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, data[0]);
         DrawText(canvas, *fontsmall, RIGHT_POS, BOTTOM_POS, colorOne, data[1]);
 
-        int nx = image.cols;
-        int ny = image.rows;
+        int nx = image.width();
+        int ny = image.height();
 
         for (int a = 0; a < ny; ++a) {
             for (int b = 0; b < nx; ++b) {
                 matrix->SetPixel(a + TOP_POS, b + LEFT_POS,
-                    ScaleQuantumToChar(image[y][x][0]),
-                    ScaleQuantumToChar(image[y][x][1]),
-                    ScaleQuantumToChar(image[y][x][2])
+                    ScaleQuantumToChar(image(a,b,0,0)),
+                    ScaleQuantumToChar(image(a,b,0,1)),
+                    ScaleQuantumToChar(image(a,b,0,2))
                 );
             }
         }
 
         canvas = matrix->SwapOnVSync(canvas);
-        break;
         sleep(60);
     }
 }
@@ -98,7 +98,7 @@ size_t callbackfunction(void *ptr, size_t size, size_t nmemb, void* userdata)
 // https://stackoverflow.com/questions/10112959/download-an-image-from-server-curl-however-taking-suggestions-c
 bool download_jpeg(const char* url)
 {
-    FILE* fp = fopen("out.jpg", "wb");
+    FILE* fp = fopen("out.png", "wb");
     if (!fp)
     {
         printf("!!! Failed to create file on the disk\n");
