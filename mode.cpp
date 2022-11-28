@@ -7,5 +7,5 @@ Mode::Mode(rgb_matrix::RGBMatrix* mtx) {
 }
 
 Mode::~Mode() {
-
+    delete api;
 }
