@@ -1,5 +1,2 @@
 *.o
 driver
-opencv.zip
-build/
-opencv-4.x/
