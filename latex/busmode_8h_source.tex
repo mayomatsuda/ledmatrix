@@ -1,0 +1,26 @@
+\hypertarget{busmode_8h_source}{}\doxysection{busmode.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef BUSMODE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define BUSMODE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}led-\/matrix.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}graphics.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}mode.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}api.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{15 \textcolor{keyword}{class }\mbox{\hyperlink{class_bus_mode}{BusMode}}: \textcolor{keyword}{public} \mbox{\hyperlink{class_mode}{Mode}} \{}
+\DoxyCodeLine{16     \textcolor{keyword}{private}:}
+\DoxyCodeLine{24         std::vector<std::string> \mbox{\hyperlink{class_bus_mode_ac443b25e9578a8c93a73b2768a4e750b}{parseRouteData}}(std::string route, std::string stop);}
+\DoxyCodeLine{32         std::string \mbox{\hyperlink{class_bus_mode_a3219acf6f2958339374390115fbec6f3}{formatData}}(std::string route, std::string stop);}
+\DoxyCodeLine{33     \textcolor{keyword}{public}:}
+\DoxyCodeLine{39         \mbox{\hyperlink{class_bus_mode}{BusMode}}(rgb\_matrix::RGBMatrix* mtx);}
+\DoxyCodeLine{40         \mbox{\hyperlink{class_bus_mode}{\string~BusMode}}();}
+\DoxyCodeLine{46         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_bus_mode_a265ba3cd52f185875b27e346eabf58b0}{displayFunction}}(std::vector<std::string> input);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

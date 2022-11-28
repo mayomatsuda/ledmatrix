@@ -1,0 +1,100 @@
+\hypertarget{class_mode}{}\doxysection{Mode Class Reference}
+\label{class_mode}\index{Mode@{Mode}}
+
+
+Abstract mode class.  
+
+
+
+
+{\ttfamily \#include $<$mode.\+h$>$}
+
+Inheritance diagram for Mode\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_mode}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_mode_afc9297080084d27967a671462a717f8e}{Mode}} (rgb\+\_\+matrix\+::\+RGBMatrix $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_mode}{Mode}} constructor with pointer to matrix. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}{display\+Function}} (std\+::vector$<$ std\+::string $>$ input)=0
+\begin{DoxyCompactList}\small\item\em Displays content on matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rgb\+\_\+matrix\+::\+RGBMatrix $\ast$ \mbox{\hyperlink{class_mode_a2be7657eef2756758fd3c86bcbe53cf5}{matrix}}
+\item 
+\mbox{\hyperlink{class_api}{Api}} $\ast$ \mbox{\hyperlink{class_mode_acf059935dcf4515221480141fc85ff91}{api}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract mode class. 
+
+Abstract class to be inherited by concrete modes. \begin{DoxyAuthor}{Authors}
+mmacd327 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_mode_afc9297080084d27967a671462a717f8e}\label{class_mode_afc9297080084d27967a671462a717f8e}} 
+\index{Mode@{Mode}!Mode@{Mode}}
+\index{Mode@{Mode}!Mode@{Mode}}
+\doxysubsubsection{\texorpdfstring{Mode()}{Mode()}}
+{\footnotesize\ttfamily Mode\+::\+Mode (\begin{DoxyParamCaption}\item[{rgb\+\_\+matrix\+::\+RGBMatrix $\ast$}]{mtx }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_mode}{Mode}} constructor with pointer to matrix. 
+
+Constructor that defines reference to matrix to display information on. 
+\begin{DoxyParams}{Parameters}
+{\em mtx} & Reference to the matrix to display on \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}\label{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}} 
+\index{Mode@{Mode}!displayFunction@{displayFunction}}
+\index{displayFunction@{displayFunction}!Mode@{Mode}}
+\doxysubsubsection{\texorpdfstring{displayFunction()}{displayFunction()}}
+{\footnotesize\ttfamily virtual void Mode\+::display\+Function (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Displays content on matrix. 
+
+Virtual display function to be overriden by specific modes. Each mode will have different specifications for the formatting of the input; for example, bus mode accepts \{ route, stop1, stop2\}. 
+\begin{DoxyParams}{Parameters}
+{\em input} & Options for display \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_bus_mode_a265ba3cd52f185875b27e346eabf58b0}{Bus\+Mode}}, and \mbox{\hyperlink{class_weather_mode_a7c78d5a13d626f0494863a60ad5938ec}{Weather\+Mode}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_mode_acf059935dcf4515221480141fc85ff91}\label{class_mode_acf059935dcf4515221480141fc85ff91}} 
+\index{Mode@{Mode}!api@{api}}
+\index{api@{api}!Mode@{Mode}}
+\doxysubsubsection{\texorpdfstring{api}{api}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_api}{Api}}$\ast$ Mode\+::api\hspace{0.3cm}{\ttfamily [protected]}}
+
+Protected reference to the \mbox{\hyperlink{class_api}{Api}}, initialized by specific modes \mbox{\Hypertarget{class_mode_a2be7657eef2756758fd3c86bcbe53cf5}\label{class_mode_a2be7657eef2756758fd3c86bcbe53cf5}} 
+\index{Mode@{Mode}!matrix@{matrix}}
+\index{matrix@{matrix}!Mode@{Mode}}
+\doxysubsubsection{\texorpdfstring{matrix}{matrix}}
+{\footnotesize\ttfamily rgb\+\_\+matrix\+::\+RGBMatrix$\ast$ Mode\+::matrix\hspace{0.3cm}{\ttfamily [protected]}}
+
+Protected reference to the matrix to be accessed by specific modes 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+mode.\+h\item 
+mode.\+cpp\end{DoxyCompactItemize}

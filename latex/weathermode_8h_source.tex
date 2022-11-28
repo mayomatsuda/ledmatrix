@@ -1,0 +1,26 @@
+\hypertarget{weathermode_8h_source}{}\doxysection{weathermode.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef WEATHERMODE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define WEATHERMODE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}led-\/matrix.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}graphics.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}mode.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}api.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{16 \textcolor{keyword}{class }\mbox{\hyperlink{class_weather_mode}{WeatherMode}}: \textcolor{keyword}{public} \mbox{\hyperlink{class_mode}{Mode}} \{}
+\DoxyCodeLine{17     \textcolor{keyword}{private}:}
+\DoxyCodeLine{25         std::vector<std::string> \mbox{\hyperlink{class_weather_mode_a0f05fbab6823d144d9908b7e2446fde2}{parseWeatherData}}(\textcolor{keywordtype}{float} lon, \textcolor{keywordtype}{float} lat);}
+\DoxyCodeLine{31         std::string \mbox{\hyperlink{class_weather_mode_a389fc73c7311acf33138093767aee299}{formatData}}(\textcolor{keywordtype}{float} lon, \textcolor{keywordtype}{float} lat);}
+\DoxyCodeLine{32     \textcolor{keyword}{public}:}
+\DoxyCodeLine{39         \mbox{\hyperlink{class_weather_mode}{WeatherMode}}(rgb\_matrix::RGBMatrix* mtx);}
+\DoxyCodeLine{40         \mbox{\hyperlink{class_weather_mode}{\string~WeatherMode}}();}
+\DoxyCodeLine{46         \textcolor{keywordtype}{void} \mbox{\hyperlink{class_weather_mode_a7c78d5a13d626f0494863a60ad5938ec}{displayFunction}}(std::vector<std::string> input);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

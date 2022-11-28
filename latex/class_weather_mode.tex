@@ -1,0 +1,119 @@
+\hypertarget{class_weather_mode}{}\doxysection{Weather\+Mode Class Reference}
+\label{class_weather_mode}\index{WeatherMode@{WeatherMode}}
+
+
+Weather info mode.  
+
+
+
+
+{\ttfamily \#include $<$weathermode.\+h$>$}
+
+Inheritance diagram for Weather\+Mode\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_weather_mode}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_weather_mode_ad3ba8afc4451fdd75bb9ed2b5f12c42f}{Weather\+Mode}} (rgb\+\_\+matrix\+::\+RGBMatrix $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_weather_mode}{Weather\+Mode}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_weather_mode_a7c78d5a13d626f0494863a60ad5938ec}{display\+Function}} (std\+::vector$<$ std\+::string $>$ input)
+\begin{DoxyCompactList}\small\item\em Displays weather info on matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_weather_mode_a0f05fbab6823d144d9908b7e2446fde2}{parse\+Weather\+Data}} (float lon, float lat)
+\begin{DoxyCompactList}\small\item\em Gather and parse weather data. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_weather_mode_a389fc73c7311acf33138093767aee299}{format\+Data}} (float lon, float lat)
+\begin{DoxyCompactList}\small\item\em Formats parsed data for display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Weather info mode. 
+
+Displays the time, the temperature, and the weather at a specific longitude and latitude using Open\+Weather\+Map\textquotesingle{}s API. \begin{DoxyAuthor}{Authors}
+mmacd327 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_weather_mode_ad3ba8afc4451fdd75bb9ed2b5f12c42f}\label{class_weather_mode_ad3ba8afc4451fdd75bb9ed2b5f12c42f}} 
+\index{WeatherMode@{WeatherMode}!WeatherMode@{WeatherMode}}
+\index{WeatherMode@{WeatherMode}!WeatherMode@{WeatherMode}}
+\doxysubsubsection{\texorpdfstring{WeatherMode()}{WeatherMode()}}
+{\footnotesize\ttfamily Weather\+Mode\+::\+Weather\+Mode (\begin{DoxyParamCaption}\item[{rgb\+\_\+matrix\+::\+RGBMatrix $\ast$}]{mtx }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{class_weather_mode}{Weather\+Mode}}. 
+
+Constructor. Unlike busmode, the constructor does not create the API because the API URL must be generated with the lon/lat provided later. 
+\begin{DoxyParams}{Parameters}
+{\em mtx} & Reference to the matrix to display on \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_weather_mode_a7c78d5a13d626f0494863a60ad5938ec}\label{class_weather_mode_a7c78d5a13d626f0494863a60ad5938ec}} 
+\index{WeatherMode@{WeatherMode}!displayFunction@{displayFunction}}
+\index{displayFunction@{displayFunction}!WeatherMode@{WeatherMode}}
+\doxysubsubsection{\texorpdfstring{displayFunction()}{displayFunction()}}
+{\footnotesize\ttfamily void Weather\+Mode\+::display\+Function (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Displays weather info on matrix. 
+
+Overridded display function that takes input parameters and displays relevant data. 
+\begin{DoxyParams}{Parameters}
+{\em text} & Options for display. Format is \{ longitude, latitude \} \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}{Mode}}.
+
+\mbox{\Hypertarget{class_weather_mode_a389fc73c7311acf33138093767aee299}\label{class_weather_mode_a389fc73c7311acf33138093767aee299}} 
+\index{WeatherMode@{WeatherMode}!formatData@{formatData}}
+\index{formatData@{formatData}!WeatherMode@{WeatherMode}}
+\doxysubsubsection{\texorpdfstring{formatData()}{formatData()}}
+{\footnotesize\ttfamily std\+::string Weather\+Mode\+::format\+Data (\begin{DoxyParamCaption}\item[{float}]{lon,  }\item[{float}]{lat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Formats parsed data for display. 
+
+Format function that takes parsed route data and puts it in a string that display\+Function can interpret. \begin{DoxyReturn}{Returns}
+Formatted string, returned to display\+Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_weather_mode_a0f05fbab6823d144d9908b7e2446fde2}\label{class_weather_mode_a0f05fbab6823d144d9908b7e2446fde2}} 
+\index{WeatherMode@{WeatherMode}!parseWeatherData@{parseWeatherData}}
+\index{parseWeatherData@{parseWeatherData}!WeatherMode@{WeatherMode}}
+\doxysubsubsection{\texorpdfstring{parseWeatherData()}{parseWeatherData()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Weather\+Mode\+::parse\+Weather\+Data (\begin{DoxyParamCaption}\item[{float}]{lon,  }\item[{float}]{lat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Gather and parse weather data. 
+
+Uses the API to scan and parse weather data at a specific location. 
+\begin{DoxyParams}{Parameters}
+{\em lon} & The longitude \\
+\hline
+{\em lat} & The latitude \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of weather info for interpretation by display\+Function 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+weathermode.\+h\item 
+weathermode.\+cpp\end{DoxyCompactItemize}

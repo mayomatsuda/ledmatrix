@@ -147,10 +147,7 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
                     tm* t = gmtime(&tmp);
                     int hour = t->tm_hour;
                     string hourStr;
-                    if (isDaylightSavings())
-                        hourStr = to_string((hour - 4 + 12) % 12);
-                    else
-                        hourStr = to_string((hour - 5 + 12) % 12);
+                    hourStr = to_string((hour - 5 + 12) % 12);
                     if (hourStr == "0")
                         hourStr = "00";
                     string minute = to_string(t->tm_min);
@@ -169,25 +166,6 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
             ind1_high = tx.find("route_id\": \"" + route, ind1_low + 1);
     }
     return times;
-}
-
-// TODO: convert this python code to C++
-// This function was coded as a proof of concept in Python before being added to C++
-bool BusMode::isDaylightSavings() {
-    // today = date.today()
-    // m = int(today.strftime("%m"))
-    // d = int(today.strftime("%d"))
-
-    // if (m >= 3 and m <= 11):
-    //     if (m == 3):
-    //         if (d >= 13):
-    //             return True
-    //     elif (m == 11):
-    //         if (d <= 6):
-    //             return True
-    //     else:
-    //         return True
-    return false;
 }
 
 string BusMode::formatData(string route, string stop) {

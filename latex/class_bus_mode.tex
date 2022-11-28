@@ -1,0 +1,126 @@
+\hypertarget{class_bus_mode}{}\doxysection{Bus\+Mode Class Reference}
+\label{class_bus_mode}\index{BusMode@{BusMode}}
+
+
+Bus schedule mode.  
+
+
+
+
+{\ttfamily \#include $<$busmode.\+h$>$}
+
+Inheritance diagram for Bus\+Mode\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_bus_mode}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_bus_mode_adf5ac7eae53e48c75ac5494cc73e8e85}{Bus\+Mode}} (rgb\+\_\+matrix\+::\+RGBMatrix $\ast$mtx)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_bus_mode}{Bus\+Mode}}, handling \mbox{\hyperlink{class_api}{Api}} creation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bus_mode_a265ba3cd52f185875b27e346eabf58b0}{display\+Function}} (std\+::vector$<$ std\+::string $>$ input)
+\begin{DoxyCompactList}\small\item\em Displays bus times on matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_bus_mode_ac443b25e9578a8c93a73b2768a4e750b}{parse\+Route\+Data}} (std\+::string route, std\+::string stop)
+\begin{DoxyCompactList}\small\item\em Gather and parse bus route data. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_bus_mode_a3219acf6f2958339374390115fbec6f3}{format\+Data}} (std\+::string route, std\+::string stop)
+\begin{DoxyCompactList}\small\item\em Formats parsed data for display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Bus schedule mode. 
+
+Displays the next scheduled times for up to 2 bus routes at a specific stop by accessing LTC\textquotesingle{}s public API. \begin{DoxyAuthor}{Authors}
+mmacd327 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_bus_mode_adf5ac7eae53e48c75ac5494cc73e8e85}\label{class_bus_mode_adf5ac7eae53e48c75ac5494cc73e8e85}} 
+\index{BusMode@{BusMode}!BusMode@{BusMode}}
+\index{BusMode@{BusMode}!BusMode@{BusMode}}
+\doxysubsubsection{\texorpdfstring{BusMode()}{BusMode()}}
+{\footnotesize\ttfamily Bus\+Mode\+::\+Bus\+Mode (\begin{DoxyParamCaption}\item[{rgb\+\_\+matrix\+::\+RGBMatrix $\ast$}]{mtx }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{class_bus_mode}{Bus\+Mode}}, handling \mbox{\hyperlink{class_api}{Api}} creation. 
+
+Constructor that handles creating the \mbox{\hyperlink{class_api}{Api}} class based on the unique URL for the bus times. 
+\begin{DoxyParams}{Parameters}
+{\em mtx} & Reference to the matrix to display on \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_bus_mode_a265ba3cd52f185875b27e346eabf58b0}\label{class_bus_mode_a265ba3cd52f185875b27e346eabf58b0}} 
+\index{BusMode@{BusMode}!displayFunction@{displayFunction}}
+\index{displayFunction@{displayFunction}!BusMode@{BusMode}}
+\doxysubsubsection{\texorpdfstring{displayFunction()}{displayFunction()}}
+{\footnotesize\ttfamily void Bus\+Mode\+::display\+Function (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Displays bus times on matrix. 
+
+Overridded display function that takes input parameters and displays relevant bus data. 
+\begin{DoxyParams}{Parameters}
+{\em input} & Options for display. Format is \{ stop, route1, route2 \} \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}{Mode}}.
+
+\mbox{\Hypertarget{class_bus_mode_a3219acf6f2958339374390115fbec6f3}\label{class_bus_mode_a3219acf6f2958339374390115fbec6f3}} 
+\index{BusMode@{BusMode}!formatData@{formatData}}
+\index{formatData@{formatData}!BusMode@{BusMode}}
+\doxysubsubsection{\texorpdfstring{formatData()}{formatData()}}
+{\footnotesize\ttfamily string Bus\+Mode\+::format\+Data (\begin{DoxyParamCaption}\item[{std\+::string}]{route,  }\item[{std\+::string}]{stop }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Formats parsed data for display. 
+
+Format function that takes parsed route data and puts it in a string that display\+Function can interpret. 
+\begin{DoxyParams}{Parameters}
+{\em route} & The bus route \\
+\hline
+{\em stop} & The bus stop \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Formatted string, returned to display\+Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_bus_mode_ac443b25e9578a8c93a73b2768a4e750b}\label{class_bus_mode_ac443b25e9578a8c93a73b2768a4e750b}} 
+\index{BusMode@{BusMode}!parseRouteData@{parseRouteData}}
+\index{parseRouteData@{parseRouteData}!BusMode@{BusMode}}
+\doxysubsubsection{\texorpdfstring{parseRouteData()}{parseRouteData()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Bus\+Mode\+::parse\+Route\+Data (\begin{DoxyParamCaption}\item[{std\+::string}]{route,  }\item[{std\+::string}]{stop }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Gather and parse bus route data. 
+
+Uses the API to scan and parse bus time data for a specific stop on a specific route. 
+\begin{DoxyParams}{Parameters}
+{\em route} & The bus route \\
+\hline
+{\em stop} & The bus stop \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of the times the bus is scheduled to come 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+busmode.\+h\item 
+busmode.\+cpp\end{DoxyCompactItemize}

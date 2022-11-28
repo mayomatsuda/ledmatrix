@@ -3,6 +3,11 @@
 
 #include <string>
 
+/** 
+ * @brief Api data access class
+ * @details Creates an Api that accesses data from a specific internet URL.
+ * @authors mmacd327
+ */
 class Api {
     private:
        /**
@@ -11,14 +16,16 @@ class Api {
         std::string apiUrl;
     public:
        /**
-        * Constructor that sets URL to access from class
+        * @brief Creates an Api that can access URL
+        * @details Constructor that sets URL to be accessed by Api.
         * @param url URL of resource to access
         */
         Api(std::string url);
         ~Api();
        /**
-        * Accesses resource at URL and returns as a string
-        * @return String response of JSON retrieved from URL
+        * @brief Access data at URL
+        * @details Accesses resource at URL and gathers all data as a string.
+        * @return String response of data retrieved from URL
         */
         std::string getData();
 };

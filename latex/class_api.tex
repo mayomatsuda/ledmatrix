@@ -1,0 +1,80 @@
+\hypertarget{class_api}{}\doxysection{Api Class Reference}
+\label{class_api}\index{Api@{Api}}
+
+
+\mbox{\hyperlink{class_api}{Api}} data access class.  
+
+
+
+
+{\ttfamily \#include $<$api.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_api_adaa4b13d3b95c8b9783ecbd994e32d2a}{Api}} (std\+::string url)
+\begin{DoxyCompactList}\small\item\em Creates an \mbox{\hyperlink{class_api}{Api}} that can access URL. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_api_a8feb115de025f5e771e75010769ecfba}{get\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Access data at URL. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_api_af72900c4a323e74d571539c846b78922}{api\+Url}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_api}{Api}} data access class. 
+
+Creates an \mbox{\hyperlink{class_api}{Api}} that accesses data from a specific internet URL. \begin{DoxyAuthor}{Authors}
+mmacd327 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_api_adaa4b13d3b95c8b9783ecbd994e32d2a}\label{class_api_adaa4b13d3b95c8b9783ecbd994e32d2a}} 
+\index{Api@{Api}!Api@{Api}}
+\index{Api@{Api}!Api@{Api}}
+\doxysubsubsection{\texorpdfstring{Api()}{Api()}}
+{\footnotesize\ttfamily Api\+::\+Api (\begin{DoxyParamCaption}\item[{std\+::string}]{url }\end{DoxyParamCaption})}
+
+
+
+Creates an \mbox{\hyperlink{class_api}{Api}} that can access URL. 
+
+Constructor that sets URL to be accessed by \mbox{\hyperlink{class_api}{Api}}. 
+\begin{DoxyParams}{Parameters}
+{\em url} & URL of resource to access \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_api_a8feb115de025f5e771e75010769ecfba}\label{class_api_a8feb115de025f5e771e75010769ecfba}} 
+\index{Api@{Api}!getData@{getData}}
+\index{getData@{getData}!Api@{Api}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily string Api\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Access data at URL. 
+
+Accesses resource at URL and gathers all data as a string. \begin{DoxyReturn}{Returns}
+String response of data retrieved from URL 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_api_af72900c4a323e74d571539c846b78922}\label{class_api_af72900c4a323e74d571539c846b78922}} 
+\index{Api@{Api}!apiUrl@{apiUrl}}
+\index{apiUrl@{apiUrl}!Api@{Api}}
+\doxysubsubsection{\texorpdfstring{apiUrl}{apiUrl}}
+{\footnotesize\ttfamily std\+::string Api\+::api\+Url\hspace{0.3cm}{\ttfamily [private]}}
+
+The URL of the resource the \mbox{\hyperlink{class_api}{Api}} is accessing 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+api.\+h\item 
+api.\+cpp\end{DoxyCompactItemize}

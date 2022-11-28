@@ -1,0 +1,22 @@
+\hypertarget{mode_8h_source}{}\doxysection{mode.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef MODE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define MODE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}led-\/matrix.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}api.h"{}}}
+\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{class_mode}{Mode}} \{}
+\DoxyCodeLine{13     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{17         rgb\_matrix::RGBMatrix* \mbox{\hyperlink{class_mode_a2be7657eef2756758fd3c86bcbe53cf5}{matrix}};}
+\DoxyCodeLine{21         \mbox{\hyperlink{class_api}{Api}}* \mbox{\hyperlink{class_mode_acf059935dcf4515221480141fc85ff91}{api}};}
+\DoxyCodeLine{22     \textcolor{keyword}{public}:}
+\DoxyCodeLine{28         \mbox{\hyperlink{class_mode}{Mode}}(rgb\_matrix::RGBMatrix* mtx);}
+\DoxyCodeLine{29         \textcolor{keyword}{virtual} \mbox{\hyperlink{class_mode}{\string~Mode}}();}
+\DoxyCodeLine{36         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_mode_a0a1d0dbdb6f79f9be7e55a5b7b498404}{displayFunction}}(std::vector<std::string> input) = 0;}
+\DoxyCodeLine{37 \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
