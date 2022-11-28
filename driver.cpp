@@ -41,10 +41,10 @@ int main(int argc, char *argv[]) {
 
     Mode* display;
     if (mode == 0) {
-        display = new BusMode(NULL);
+        display = new BusMode(matrix);
         // input = {"WHARMOIR", "02", "102"};
     } else if (mode == 1) {
-        display = new WeatherMode(NULL);
+        display = new WeatherMode(matrix);
         // input = {"-81.247528", "42.984268"};
     }
     try {
