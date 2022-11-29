@@ -22,14 +22,6 @@ class BusMode: public Mode {
         * @return A vector of the times the bus is scheduled to come
         */
         std::vector<std::string> parseRouteData(std::string route, std::string stop);
-       /**
-        * @brief Formats parsed data for display
-        * @details Format function that takes parsed route data and puts it in a string that displayFunction can interpret.
-        * @param route The bus route
-        * @param stop The bus stop
-        * @return Formatted string, returned to displayFunction
-        */
-        std::string formatData(std::string route, std::string stop);
     public:
        /**
         * @brief Constructor for BusMode, handling Api creation
