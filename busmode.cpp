@@ -26,22 +26,10 @@ void BusMode::displayFunction(vector<string> input) {
     string route1 = input[1];
     string route2 = input[2];
 
-    string route1data = formatData(route1, stop);
-    string route2data = formatData(route2, stop);
+    vector<string> route1times = parseRouteData(route1, stop);
+    vector<string> route2times = parseRouteData(route2, stop);
 
-    vector<string> route1times;
-    vector<string> route2times;
-    string tmp;
-    stringstream r1ss(route1data);
-    stringstream r2ss(route2data);
-
-    while(getline(r1ss, tmp, ' ')){
-        route1times.push_back(tmp);
-    }
-    while(getline(r2ss, tmp, ' ')){
-        route2times.push_back(tmp);
-    }
-
+    // Prepare matrix
     FrameCanvas *canvas = matrix->CreateFrameCanvas();
     Font *font = new Font();
     font->LoadFont("./rpi-rgb-led-matrix/fonts/7x13.bdf");
@@ -50,23 +38,13 @@ void BusMode::displayFunction(vector<string> input) {
 
     int counter = 0;
 
+    // While true is used because, in theory, the matrix should be on perpetually until it's powered off
     while (true) {
+        // Every 12*5 = 60 seconds, re-fetch data
         if (counter == 12) {
-            route1data = formatData(route1, stop);
-            route2data = formatData(route2, stop);
+            route1times = parseRouteData(route1, stop);
+            route2times = parseRouteData(route2, stop);
 
-            route1times = {};
-            route2times = {};
-
-            stringstream r1ss(route1data);
-            stringstream r2ss(route2data);
-
-            while(getline(r1ss, tmp, ' ')){
-                route1times.push_back(tmp);
-            }
-            while(getline(r2ss, tmp, ' ')){
-                route2times.push_back(tmp);
-            }
             counter = 0;
         }
         counter += 1;
@@ -77,6 +55,7 @@ void BusMode::displayFunction(vector<string> input) {
         const int TOP_POS = 13;
         const int BOTTOM_POS = 27;
 
+        // Draw text on matrix
         DrawText(canvas, *font, LEFT_POS, TOP_POS, colorOne, (route1 + ": ").c_str());
         if (route1times.size() > 0) {
             DrawText(canvas, *font, RIGHT_POS, TOP_POS, colorTwo, route1times[counter % route1times.size()].c_str());
@@ -92,13 +71,13 @@ void BusMode::displayFunction(vector<string> input) {
 
 vector<string> BusMode::parseRouteData(string route, string stop) {
     // Get data from the Api
-    // See TripUpdates.json for an example of what the data being processed here will look like
-
     string tx = api->getData();
+
+    // NOTE: the json provided by LTC has errors, and thus, reading it like a normal json wasn't working.
+    // This workaround reads it like a long string and finds necessary fields manually.
 
     // First occurence of desired route, indicated by '"route_id":"<route>"' in the data
     int ind1_low = tx.find("route_id\":\"" + route);
-    // TODO: ensure -1 is result of failed find in C++; if not, adjust 
     if (ind1_low == -1) {
         ind1_low = tx.find("route_id\": \"" + route);
     }
@@ -116,7 +95,7 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
 
     // TODO: choose better loop condition than true
     while (true) {
-        // This will eventually happen, terminating the loop
+        // This will eventually happen when the entire string has been read, terminating the loop
         if (ind1_low == -1) {
             // Sort times from soonest to latest and return
             sort(times.begin(), times.end());
@@ -142,6 +121,7 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
                 // Find occurence of time at most 50 characters before stop
                 int ind3 = tx.find("time", ind2 - 50);
                 if (ind3 != -1) {
+                    // Convert the time from the json (in UNIX time) to readable time
                     int timeunix = stoi(tx.substr(ind3+6,ind3+16));
                     time_t tmp = timeunix;
                     tm* t = gmtime(&tmp);
@@ -158,7 +138,7 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
                 }
             }
         }
-        
+        // Search the next group of indexes for more times
         ind1_low = ind1_high;
         ind_between = tx.find("route_id\":\"", ind1_low + 1);
         ind1_high = tx.find("route_id\":\"" + route, ind1_low + 1);
@@ -166,13 +146,4 @@ vector<string> BusMode::parseRouteData(string route, string stop) {
             ind1_high = tx.find("route_id\": \"" + route, ind1_low + 1);
     }
     return times;
-}
-
-string BusMode::formatData(string route, string stop) {
-    vector<string> data1 = parseRouteData(route, stop);
-    string result = "";
-    for (string i : data1) {
-        result = result + i + " ";
-    }
-    return result;
 }

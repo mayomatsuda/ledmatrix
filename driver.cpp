@@ -27,14 +27,15 @@ int main(int argc, char *argv[]) {
             mode = 1;
             input = { argv[2], argv[3]};
         } else {
-            cout << "Invalid mode." << endl;
+            cout << "Invalid input." << endl;
             return 0;
         }
     }
 
+    // Set Matrix options
     RGBMatrix::Options matrix_options;
     rgb_matrix::RuntimeOptions runtime_opt;
-    matrix_options.brightness = 50;
+    matrix_options.brightness = 40;
     matrix_options.cols = 64;
     matrix_options.hardware_mapping = "adafruit-hat";
     RGBMatrix *matrix = RGBMatrix::CreateFromOptions(matrix_options, runtime_opt);
@@ -42,14 +43,14 @@ int main(int argc, char *argv[]) {
     Mode* display;
     if (mode == 0) {
         display = new BusMode(matrix);
-        // input = {"WHARMOIR", "02", "102"};
     } else if (mode == 1) {
         display = new WeatherMode(matrix);
-        // input = {"-81.247528", "42.984268"};
     }
+
     try {
         display->displayFunction(input);
     } catch (...) {
+        // If the input is invalid, displayFunction will throw an error while parsing it
         cout << "Invalid input." << endl;
     }
 }
