@@ -1,5 +1,3 @@
-3307 Group 45
-
 DEPENDENCIES
 
 curlpp (https://github.com/jpbarrette/curlpp)
